@@ -13,17 +13,17 @@ import(
 var DB *gorm.DB
 
 // initialize db connection
-func initDB(){
+func InitDB(){
 	// localhost for now
 	host:="localhost"
 	port:=5432
 	user:="chat_app"
 	password:="chat_app"
-	dbName:="chat_app"
+	dbname:="chat_app"
 
 	dsn:=fmt.Sprintf(
-		"host=%s user=%s password=%s dbName=%s port=%d sslmode=disable TimeZone=UTC",
-		host,user,password,dbName,port,
+		"host=%s user=%s password=%s dbname=%s port=%d sslmode=disable TimeZone=UTC",
+		host,user,password,dbname,port,
 	)
 
 	// gorm logger 
@@ -36,9 +36,10 @@ func initDB(){
 			Colorful: true,
 		},
 	)
-	db,err := gorm.Open(postgres.Open(dsn),&gorm,Config{
-		Logger:=newLogger,
+	db,err := gorm.Open(postgres.Open(dsn), &gorm.Config{
+		Logger: newLogger,
 	})
+
 	if err!=nil{
 		log.Fatalf("failed to connect database: %v",err)
 
