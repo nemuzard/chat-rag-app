@@ -6,6 +6,8 @@ import(
 	"net/http"
 	"github.com/gin-gonic/gin" 
 	"github.com/nemuzard/chat-rag-backend/internal/store"
+	"github.com/nemuzard/chat-rag-backend/internal/handlers"
+
 )
 
 func main(){
@@ -31,9 +33,10 @@ func main(){
 			"status":"ok",
 		})
 	})
-	// start on port 8080
+	//When sends a POST request to `/users/register`, it invokes `handlers.RegisterUser`.
+	r.POST("/users/register", handlers.RegisterUser)
+	// start on port 8000
 	if err:=r.Run(":8000"); err!=nil{
-
 		log.Fatalf("server failed to start: %v",err)
 	}
 }
